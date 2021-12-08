@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import createServices from './services/createServices';
+import TxButton from "./TxButton";
 
 class Survey extends Component {
   componentDidMount() {
     this.props.getBlockNum()
   }
 
+
   render() {
-    const random = Math.round(Math.random()*100)
+
+
     return <>
       <br/><br/>
       <br/><br/>
-      <button onClick={()=>this.props.makeTx(random)}>Post TX for {random} value</button>
+      <TxButton network={this.props.network}/>
       <br/><br/><br/><br/>
       on block {this.props.blockNum}
     </>

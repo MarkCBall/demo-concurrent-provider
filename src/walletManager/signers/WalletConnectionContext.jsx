@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useContext } from "react"
 
 
 
@@ -24,8 +24,8 @@ function withWalletSigner(WrappedComponent) {
       //todo done awaiting UI selection
     }
     const getSigner = async (network) =>{
-      if (currentWallet/** matches network **/){
-        return //todo
+      if (currentWallet/** supports network **/){
+        //todo tell the wallet to change to current network
       }else{
         await setWalletPromptNetwork(network)
 
@@ -47,7 +47,7 @@ function withWalletSigner(WrappedComponent) {
   }
 }
 
-const WalletSignerProvider = (props) => {
+export const WalletSignerProvider = (props) => {
   return <WalletSigner.Provider value={props.value} {...props} />
 }
 
@@ -56,7 +56,7 @@ const WalletSignerProvider = (props) => {
 export default withWalletSigner(WalletSignerProvider)
 
 export function useWalletSigner() {
-  const context = React.useContext(WalletSigner)
+  const context = useContext(WalletSigner)
   if (context === undefined) {
     throw new Error(`useWalletSigner must be used within a WalletSignerProvider`)
   }
