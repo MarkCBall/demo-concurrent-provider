@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer'
-import ScrollButton from '../../components/ScrollButton'
+import ScrollButton from '../../presentationComponents/ScrollButton'
 
 // should render the scroll button
 test('scroll button renders correctly', () => {

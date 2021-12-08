@@ -4,7 +4,7 @@ import { render} from "react-testing-library"
 /** for DOM events */
 import 'jest-dom/extend-expect'
 /** Components */
-import ScrollButton from '../../components/ScrollButton'
+import ScrollButton from '../../presentationComponents/ScrollButton'
 
 
 

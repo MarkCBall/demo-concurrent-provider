@@ -8,8 +8,8 @@ import Adapter from 'enzyme-adapter-react-16';
 /** for DOM events */
 import 'jest-dom/extend-expect'
 /** Components */
-import ChoiceQuestions from '../../components/ChoiceQuestions'
-import SurveyQuestion from '../../components/SurveyQuestion'
+import ChoiceQuestions from '../../presentationComponents/ChoiceQuestions'
+import SurveyQuestion from '../../presentationComponents/SurveyQuestion'
 
 Enzyme.configure({ adapter: new Adapter() });
 

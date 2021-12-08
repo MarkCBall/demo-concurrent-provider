@@ -6,8 +6,8 @@ import {createMemoryHistory} from 'history'
 /** for DOM events */
 import 'jest-dom/extend-expect'
 /** Components */
-import Loading from '../../components/Loading'
-import SurveyList from "../../components/SurveyList"
+import Loading from '../../presentationComponents/Loading'
+import SurveyList from "../../presentationComponents/SurveyList"
 
 // import Survey from '.././pages/Survey'
 

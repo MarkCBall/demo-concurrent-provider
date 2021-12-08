@@ -12,7 +12,7 @@ class Survey extends Component {
     return <>
       <br/><br/>
       <br/><br/>
-      <button onClick={()=>this.props.makeTx(random)}>Post TX {random}</button>
+      <button onClick={()=>this.props.makeTx(random)}>Post TX for {random} value</button>
       <br/><br/><br/><br/>
       on block {this.props.blockNum}
     </>

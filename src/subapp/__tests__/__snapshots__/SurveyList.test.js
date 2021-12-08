@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer'
-import SurveyList from '../../components/SurveyList'
+import SurveyList from '../../presentationComponents/SurveyList'
 
 // should render the ssurevylist
 test('survey list renders correctly', () => {
