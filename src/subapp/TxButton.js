@@ -3,13 +3,15 @@ import {useWalletSigner} from "../walletManager/signers/WalletConnectionContext"
 
 
 const TxButton = ({network}) =>{
-  const random = Math.round(Math.random()*100)
-  const x = useWalletSigner()
-  console.log(x)
+  const walletSigner = useWalletSigner()
   return (
     <>
-      <button onClick={()=>this.props.makeTx(random)}>Post TX for {random} value</button>
-      <button onClick={()=>x.getSigner(network)}>New style post</button>
+      {/*<button onClick={()=>this.props.makeTx(random)}>Post TX for {random} value</button>*/}
+      <button onClick={()=>walletSigner.getSigner(network).then((signer)=>console.log("got signer",signer))}>
+        {walletSigner.currentWallet}
+        New style post
+
+      </button>
     </>
 
   )

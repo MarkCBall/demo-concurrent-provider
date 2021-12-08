@@ -1,4 +1,6 @@
 import React, { useEffect, useState, useContext } from "react"
+import * as ethers from "ethers"
+import networks from "../providers/networks"
 
 
 
@@ -11,7 +13,8 @@ const WalletSigner = React.createContext(null)
 function withWalletSigner(WrappedComponent) {
   return function(props) {
     const [walletPromptNetwork, setWalletPromptNetwork] = useState(null)
-    const [currentWallet, setCurrentWallet] = useState(null)//todo check if something already selected
+    const [currentWallet, setCurrentWallet] = useState(null)//todo check if something already selected in window, default to that
+    const [ injectedConnector, setInjectedConnector ] = useState(null)
 
     const promptWalletFromNetwork = (network) =>{
       setWalletPromptNetwork(network)
@@ -24,9 +27,19 @@ function withWalletSigner(WrappedComponent) {
       //todo done awaiting UI selection
     }
     const getSigner = async (network) =>{
-      if (currentWallet/** supports network **/){
-        //todo tell the wallet to change to current network
+      // console.log("getSigner called", network,currentWallet,  networks[network])
+      if (currentWallet === "metamask"){
+        await window.ethereum.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: networks[network].chainHex }],//todo error handling
+        });
+        const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+        await provider.send("eth_requestAccounts", []);
+        const signer = provider.getSigner();
+        console.log("returning metamask signer",signer)
+        return signer
       }else{
+        console.log("getSigner else")
         await setWalletPromptNetwork(network)
 
         //todo await UI selection
@@ -39,7 +52,7 @@ function withWalletSigner(WrappedComponent) {
     return <WrappedComponent {...props} value={{
       getSigner,
       currentWallet,
-      setWalletPromptNetwork,
+      promptWalletFromNetwork,
       walletPromptNetwork,
       setWallet
     }
