@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useContext } from "react"
 import * as ethers from "ethers"
 import networks from "../providers/networks"
+import {getSignerFromMetamask} from "./injectedConnectors/getSignerFromMetamask";
+import {INJECTED_CONNECTORS} from "./WalletConnectionSelectUI";
 
 
 
@@ -12,37 +14,20 @@ const WalletSigner = React.createContext(null)
 
 function withWalletSigner(WrappedComponent) {
   return function(props) {
-    const [walletPromptNetwork, setWalletPromptNetwork] = useState(null)
-    const [currentWallet, setCurrentWallet] = useState(null)//todo check if something already selected in window, default to that
-    const [ injectedConnector, setInjectedConnector ] = useState(null)
+    const [ injectedConnector, setInjectedConnector ] = useState("unset")//todo check if something already selected in window, default to that
 
-    const promptWalletFromNetwork = (network) =>{
-      setWalletPromptNetwork(network)
 
+    const selectInjectedConnector = async (selectedInjector) =>{
+      setInjectedConnector(selectedInjector)
     }
-
-    const setWallet = async (selectedWallet) =>{
-      setCurrentWallet(selectedWallet)
-      setWalletPromptNetwork(null)
-      //todo done awaiting UI selection
-    }
-    const getSigner = async (network) =>{
-      // console.log("getSigner called", network,currentWallet,  networks[network])
-      if (currentWallet === "metamask"){
-        await window.ethereum.request({
-          method: 'wallet_switchEthereumChain',
-          params: [{ chainId: networks[network].chainHex }],//todo error handling
-        });
-        const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-        await provider.send("eth_requestAccounts", []);
-        const signer = provider.getSigner();
-        console.log("returning metamask signer",signer)
+    const getSigner = async (expectedNetwork) =>{
+      const currentNetwork = injectedConnector.implementation
+      if (currentNetwork === "metamask"){
+        const signer = await getSignerFromMetamask(expectedNetwork, currentNetwork)
+        setInjectedConnector(INJECTED_CONNECTORS.metamask[expectedNetwork])//todo refactor needed?
         return signer
       }else{
-        console.log("getSigner else")
-        await setWalletPromptNetwork(network)
-
-        //todo await UI selection
+        setInjectedConnector(null)
         return getSignerFromInjectedConnector()
       }
     }
@@ -51,10 +36,9 @@ function withWalletSigner(WrappedComponent) {
 
     return <WrappedComponent {...props} value={{
       getSigner,
-      currentWallet,
-      promptWalletFromNetwork,
-      walletPromptNetwork,
-      setWallet
+      //todo withSigner
+      selectInjectedConnector,
+      injectedConnector
     }
     }/>
   }
