@@ -7,7 +7,7 @@ const ButtonSwitch = (props) =>{
   const onClick = ()=>{
     walletSigner.getSigner(expectedNetwork)
   }
-    if (walletSigner?.injectedConnector?.network === expectedNetwork){
+    if (walletSigner.isConnectedToNetwork(expectedNetwork)){
       return props.children
     }else if(customSwitchButton){
       return React.cloneElement(customSwitchButton,{onClick})

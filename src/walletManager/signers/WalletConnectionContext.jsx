@@ -1,6 +1,4 @@
-import React, { useEffect, useState, useContext } from "react"
-import * as ethers from "ethers"
-import networks from "../providers/networks"
+import React, { useState, useContext } from "react"
 import {getSignerFromMetamask} from "./injectedConnectors/getSignerFromMetamask";
 import {INJECTED_CONNECTORS} from "./WalletConnectionSelectUI";
 
@@ -23,7 +21,6 @@ function withWalletSigner(WrappedComponent) {
     const getSigner = async (expectedNetwork) =>{
       try{
         const currentNetwork = injectedConnector.implementation
-        console.log("get signer",expectedNetwork,INJECTED_CONNECTORS.metamask[expectedNetwork], currentNetwork)
         if (currentNetwork === "metamask"){
           const signer = await getSignerFromMetamask(expectedNetwork, currentNetwork)
           setInjectedConnector(INJECTED_CONNECTORS.metamask[expectedNetwork])//todo refactor needed?
@@ -37,11 +34,13 @@ function withWalletSigner(WrappedComponent) {
       }
     }
 
+    const isConnectedToNetwork = (network) => injectedConnector?.network === network
 
 
     return <WrappedComponent {...props} value={{
       getSigner,
       //todo withSigner
+      isConnectedToNetwork,
       selectInjectedConnector,
       injectedConnector
     }

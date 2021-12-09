@@ -2,14 +2,7 @@ import React from "react";
 import {useWalletSigner} from "../walletManager/signers/WalletConnectionContext";
 import ButtonSwitch from "../walletManager/signers/ButtonSwitch";
 
-
-// const CustomSwitchButton = () =>{
-//   return()
-//
-// }
-
 const TxButton = (props) =>{
-  console.log(props)
   const { network } = props
   const walletSigner = useWalletSigner()
   return (
@@ -27,8 +20,7 @@ const TxButton = (props) =>{
           })
         })
       }}>
-        {/*//todo expose walletSigner.isConnectedToNetwork(network)*/}
-        {walletSigner.injectedConnector.network === network ? "Make Tx" : "Switch network"}
+        {walletSigner.isConnectedToNetwork(network) ? "Make Tx" : "Switch network"}
 
       </button>
     </ButtonSwitch>
