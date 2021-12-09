@@ -11,6 +11,11 @@ const getSigner = async () =>{
 
 
 export const getSignerFromMetamask = async (expectedNetwork,currentNetwork) =>{
+  if(!window.ethereum.isConnected()){
+    console.log("metamask not connected")
+    //todo
+  }
+
   if (currentNetwork !== expectedNetwork){
     await window.ethereum.request({
       method: 'wallet_switchEthereumChain',

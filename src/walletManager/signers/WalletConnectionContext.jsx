@@ -21,14 +21,19 @@ function withWalletSigner(WrappedComponent) {
       setInjectedConnector(selectedInjector)
     }
     const getSigner = async (expectedNetwork) =>{
-      const currentNetwork = injectedConnector.implementation
-      if (currentNetwork === "metamask"){
-        const signer = await getSignerFromMetamask(expectedNetwork, currentNetwork)
-        setInjectedConnector(INJECTED_CONNECTORS.metamask[expectedNetwork])//todo refactor needed?
-        return signer
-      }else{
-        setInjectedConnector(null)
-        return getSignerFromInjectedConnector()
+      try{
+        const currentNetwork = injectedConnector.implementation
+        console.log("get signer",expectedNetwork,INJECTED_CONNECTORS.metamask[expectedNetwork], currentNetwork)
+        if (currentNetwork === "metamask"){
+          const signer = await getSignerFromMetamask(expectedNetwork, currentNetwork)
+          setInjectedConnector(INJECTED_CONNECTORS.metamask[expectedNetwork])//todo refactor needed?
+          return signer
+        }else{
+          setInjectedConnector(null)
+          return getSignerFromInjectedConnector()
+        }
+      }catch(e){
+        console.error("getSigner unexpected error",e)
       }
     }
 

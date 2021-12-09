@@ -9,15 +9,14 @@ import WalletConnectionSelectUI from "./walletManager/signers/WalletConnectionSe
 ReactDOM.render(
       <WalletSignerProvider>
         <WalletConnectionSelectUI>
-          Demo shows that the block number is concurrently
+          Terminal layout has many apps, each connecting to the blockchain
           <br/>
-          fetched from 3 networks. Also we can post TXs to many
+          Each app should only need to deal with wallets when making a transaction
           <br/>
-          networks at the same time
           <br/>
-          <SubApp widgetName={"pancakeswap"} network={"BSC"}/>
-          <SubApp widgetName={"pangolin"} network={"Avalanche"}/>
-          <SubApp widgetName={"uniswap"} network={"Ethereum"}/>
+          <SubApp widgetName={"pancakeswap(BSC)"} network={"BSC"}/>
+          <SubApp widgetName={"pangolin(Ava)"} network={"Avalanche"}/>
+          <SubApp widgetName={"uniswap(Eth)"} network={"Ethereum"}/>
         </WalletConnectionSelectUI>
       </WalletSignerProvider>,
   document.getElementById('root'),

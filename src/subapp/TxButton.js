@@ -8,7 +8,9 @@ import ButtonSwitch from "../walletManager/signers/ButtonSwitch";
 //
 // }
 
-const TxButton = ({network}) =>{
+const TxButton = (props) =>{
+  console.log(props)
+  const { network } = props
   const walletSigner = useWalletSigner()
   return (
 
@@ -16,38 +18,20 @@ const TxButton = ({network}) =>{
       expectedNetwork={network}
       customSwitchButton={<button>Switch to {network}</button>}
     >
-      <button onClick={()=>walletSigner.getSigner(network).then((signer)=>{
-        signer.sendTransaction({
-          from:signer.getAddress(),
-          to: signer.getAddress(),
-          value: 1,
+      <button onClick={()=> {
+        walletSigner.getSigner(network).then((signer)=>{
+          signer.sendTransaction({
+            from:signer.getAddress(),
+            to: signer.getAddress(),
+            value: 1,
+          })
         })
-      }
-      )}>
+      }}>
+        {/*//todo expose walletSigner.isConnectedToNetwork(network)*/}
         {walletSigner.injectedConnector.network === network ? "Make Tx" : "Switch network"}
 
       </button>
     </ButtonSwitch>
-
-
-
-
-      // withButtonSwitch(network,<button onClick={()=>walletSigner.getSigner(network).then((signer)=>{
-      //     console.log("got signer to make TX",signer)
-      //     signer.sendTransaction({
-      //       from:signer.getAddress(),
-      //       to: signer.getAddress(),
-      //       value: 1,
-      //     })
-      //   }
-      // )}>
-      //     {walletSigner.injectedConnector.network === network ? "Make Tx" : "Switch network"}
-      //
-      //   </button>
-      //
-      //   )
-
-
 
   )
 }

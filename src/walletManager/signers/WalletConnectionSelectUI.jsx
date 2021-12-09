@@ -15,21 +15,37 @@ const WalletConnectionSelectUI = (props) =>{
     return props.children
   }else{
     return <>
-      You must select a network
+      <div style={{
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        marginTop: "-50px",
+        marginLeft: "-50px",
+        width: "200px",
+        height: "100px"
+      }}>
+        You must select a network
 
-      <br/>
-      <button onClick={()=>walletSigner.selectInjectedConnector(INJECTED_CONNECTORS.metamask.Ethereum)}>
-        Metamask - Eth
-      </button>
-      <button onClick={()=>walletSigner.selectInjectedConnector(INJECTED_CONNECTORS.metamask.Avalanche)}>
-        Metamask - Avax
-      </button>
-      <button onClick={()=>walletSigner.selectInjectedConnector(INJECTED_CONNECTORS.metamask.BSC)}>
-        Metamask - BSC
-      </button>
-      <br/>
-      Coin thing
+        <br/>
+        <button onClick={()=>walletSigner.selectInjectedConnector(INJECTED_CONNECTORS.metamask.Ethereum)}>
+          Metamask - Eth
+        </button>
+        <button onClick={()=>walletSigner.selectInjectedConnector(INJECTED_CONNECTORS.metamask.Avalanche)}>
+          Metamask - Avax
+        </button>
+        <button onClick={()=>walletSigner.selectInjectedConnector(INJECTED_CONNECTORS.metamask.BSC)}>
+          Metamask - BSC
+        </button>
+        <br/>
+        Coin thing
+
+      </div>
+      <div style={{opacity:"0.2"}}>
+        {props.children}
+      </div>
+
     </>
+
   }
 
 }

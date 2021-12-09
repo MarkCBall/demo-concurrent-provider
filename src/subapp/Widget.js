@@ -13,11 +13,20 @@ class Survey extends Component {
 
 
     return <>
+      <br/>
+      ------------------------------
       <br/><br/>
       <br/><br/>
-      <TxButton network={this.props.network}/>
+      <div style={{border:"solid"}}>
+      EXECUTE TRADE<br/>
+        <TxButton network={this.props.network}/>
+      </div>
+
+
       <br/><br/><br/><br/>
-      on block {this.props.blockNum}
+      latest block {this.props.blockNum}
+      <br/>
+      (fetched without using a wallet)
     </>
   }
 }
