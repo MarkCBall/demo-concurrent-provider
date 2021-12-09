@@ -4,8 +4,10 @@ import {useWalletSigner} from "./WalletConnectionContext";
 const ButtonSwitch = (props) =>{
   const { expectedNetwork, customSwitchButton } = props
   const walletSigner = useWalletSigner()
-  const onClick = ()=>{
-    walletSigner.getSigner(expectedNetwork)
+  const onClick = async ()=>{
+    walletSigner.setPendingUserInput(true)
+    await walletSigner.getSigner(expectedNetwork)//todo should this be separated into switch network function?
+    walletSigner.setPendingUserInput(false)
   }
     if (walletSigner.isConnectedToNetwork(expectedNetwork)){
       return props.children

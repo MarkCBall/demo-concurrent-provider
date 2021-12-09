@@ -17,10 +17,11 @@ export const getSignerFromMetamask = async (expectedNetwork,currentNetwork) =>{
   }
 
   if (currentNetwork !== expectedNetwork){
-    await window.ethereum.request({
+    const x = await window.ethereum.request({
       method: 'wallet_switchEthereumChain',
       params: [{ chainId: networks[expectedNetwork].chainHex }],//todo error handling
     });
+    console.log("xxxxx",x)
   }
   return getSigner()
 

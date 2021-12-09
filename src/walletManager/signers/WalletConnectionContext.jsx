@@ -5,7 +5,7 @@ import {INJECTED_CONNECTORS} from "./WalletConnectionSelectUI";
 
 
 const getSignerFromInjectedConnector = () =>{
-  //todo
+  throw new Error("Not supported")
 }
 
 const WalletSigner = React.createContext(null)
@@ -13,7 +13,7 @@ const WalletSigner = React.createContext(null)
 function withWalletSigner(WrappedComponent) {
   return function(props) {
     const [ injectedConnector, setInjectedConnector ] = useState("unset")//todo check if something already selected in window, default to that
-
+    const [pendingUserInput,setPendingUserInput] = useState(false)
 
     const selectInjectedConnector = async (selectedInjector) =>{
       setInjectedConnector(selectedInjector)
@@ -30,7 +30,7 @@ function withWalletSigner(WrappedComponent) {
           return getSignerFromInjectedConnector()
         }
       }catch(e){
-        console.error("getSigner unexpected error",e)
+        console.error("getSigner unexpected error",e)//todo
       }
     }
     const getWithSigner = (network) =>{
@@ -46,7 +46,9 @@ function withWalletSigner(WrappedComponent) {
       getWithSigner,
       isConnectedToNetwork,
       selectInjectedConnector,
-      injectedConnector
+      injectedConnector,
+      setPendingUserInput,
+      pendingUserInput
     }
     }/>
   }

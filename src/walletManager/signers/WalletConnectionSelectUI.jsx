@@ -11,9 +11,30 @@ export const INJECTED_CONNECTORS = {
 
 const WalletConnectionSelectUI = (props) =>{
   const walletSigner = useWalletSigner()
-  if (walletSigner.injectedConnector){
+  if(walletSigner.pendingUserInput) {
+    return <>
+      <div style={{
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        marginTop: "-50px",
+        marginLeft: "-50px",
+        width: "200px",
+        height: "100px"
+      }}>
+        Loading...
+        <br/>
+        <br/>
+        Interact with wallet to continue
+
+      </div>
+      <div style={{opacity:"0.2"}}>
+        {props.children}
+      </div>
+    </>
+  }else if (walletSigner.injectedConnector){
     return props.children
-  }else{
+  } else{
     return <>
       <div style={{
         position: "absolute",
@@ -43,7 +64,6 @@ const WalletConnectionSelectUI = (props) =>{
       <div style={{opacity:"0.2"}}>
         {props.children}
       </div>
-
     </>
 
   }
