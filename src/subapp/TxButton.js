@@ -12,13 +12,20 @@ const TxButton = (props) =>{
       customSwitchButton={<button>Switch to {network}</button>}
     >
       <button onClick={()=> {
-        walletSigner.getSigner(network).then((signer)=>{
+        walletSigner.getWithSigner(network)(signer=>{
           signer.sendTransaction({
             from:signer.getAddress(),
             to: signer.getAddress(),
             value: 1,
           })
         })
+        // walletSigner.getSigner(network).then((signer)=>{
+        //   signer.sendTransaction({
+        //     from:signer.getAddress(),
+        //     to: signer.getAddress(),
+        //     value: 1,
+        //   })
+        // })
       }}>
         {walletSigner.isConnectedToNetwork(network) ? "Make Tx" : "Switch network"}
 

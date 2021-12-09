@@ -33,13 +33,17 @@ function withWalletSigner(WrappedComponent) {
         console.error("getSigner unexpected error",e)
       }
     }
+    const getWithSigner = (network) =>{
+      return async (cb) => cb(await getSigner(network))
+    }
+
 
     const isConnectedToNetwork = (network) => injectedConnector?.network === network
 
 
     return <WrappedComponent {...props} value={{
       getSigner,
-      //todo withSigner
+      getWithSigner,
       isConnectedToNetwork,
       selectInjectedConnector,
       injectedConnector
