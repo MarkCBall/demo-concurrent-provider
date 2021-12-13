@@ -27,6 +27,11 @@ class Survey extends Component {
       latest block {this.props.blockNum}
       <br/>
       (fetched without using a wallet)
+      <br/>
+      ------------------------------
+      <br/><br/>
+      <br/><br/>
+      Account balance: (TODO)
     </>
   }
 }
@@ -41,7 +46,7 @@ const mapDispatchToProps = (dispatch,props) => {
   const services = createServices(props.network)
   return {
   getBlockNum: () => dispatch(services.getBlockNum()),
-  makeTx: (amount) => dispatch(services.makeTx(amount))
+  // makeTx: (amount) => dispatch(services.makeTx(amount))
 }};
 
 export default connect(

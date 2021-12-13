@@ -20,7 +20,8 @@ const WalletConnectionSelectUI = (props) =>{
         marginTop: "-50px",
         marginLeft: "-50px",
         width: "200px",
-        height: "100px"
+        height: "100px",
+        backgroundColor:"rgba(150, 150, 150, 0.5)"
       }}>
         Loading...
         <br/>
@@ -43,7 +44,8 @@ const WalletConnectionSelectUI = (props) =>{
         marginTop: "-50px",
         marginLeft: "-50px",
         width: "200px",
-        height: "100px"
+        height: "100px",
+        backgroundColor:"rgba(150, 150, 150, 0.5)"
       }}>
         You must select a network
 

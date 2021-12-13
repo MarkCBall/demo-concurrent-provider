@@ -6,7 +6,7 @@ const ButtonSwitch = (props) =>{
   const walletSigner = useWalletSigner()
   const onClick = async ()=>{
     walletSigner.setPendingUserInput(true)
-    await walletSigner.getSigner(expectedNetwork)//todo should this be separated into switch network function?
+    await walletSigner.changeNetwork(expectedNetwork)
     walletSigner.setPendingUserInput(false)
   }
     if (walletSigner.isConnectedToNetwork(expectedNetwork)){
@@ -15,7 +15,7 @@ const ButtonSwitch = (props) =>{
       return React.cloneElement(customSwitchButton,{onClick})
     }else{
       return <button onClick={onClick}>
-              Switch network
+              Switch network default
             </button>
     }
 }

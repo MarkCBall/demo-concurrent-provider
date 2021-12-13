@@ -9,7 +9,7 @@ const TxButton = (props) =>{
 
     <ButtonSwitch
       expectedNetwork={network}
-      customSwitchButton={<button>Switch to {network}</button>}
+      customSwitchButton={<button>Switch to {network} to make Tx</button>}
     >
       <button onClick={()=> {
         walletSigner.getWithSigner(network)(signer=>{
@@ -27,7 +27,7 @@ const TxButton = (props) =>{
         //   })
         // })
       }}>
-        {walletSigner.isConnectedToNetwork(network) ? "Make Tx" : "Switch network"}
+        {"Make Tx"}
 
       </button>
     </ButtonSwitch>
